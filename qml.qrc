@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/features/Pomodoro">
+        <file>qml/center.png</file>
+        <file>qml/clock.png</file>
+        <file>qml/Clock.qml</file>
+        <file>qml/hour.png</file>
+        <file>qml/minute.png</file>
+        <file>qml/Pomodoro.qml</file>
+        <file>qml/second.png</file>
+        <file>qml/SelectInterval.qml</file>
+    </qresource>
+</RCC>
