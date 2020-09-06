@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+name: Mirror_plugin-feature-Pomodoro_$(Date:yyyyMMddHHmmss)
+
+variables:
+- group: PAT
+
+# Mirror on every push
+trigger:
+  branches:
+    include:
+    - '*'
+  batch: true
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+  lfs: true
+  persistCredentials: true
+- script: |
+    mkdir -p mirror
+    cd mirror
+    git clone --mirror https://$(ADO_PAT):@dev.azure.com/sakamoto-poteko/zWaifu/_git/plugin-feature-Pomodoro
+    cd plugin-feature-Pomodoro.git
+    git lfs fetch origin --all
+    git push --mirror https://$(GITHUB_PAT):@github.com/zWaifu/plugin-feature-Pomodoro.git
+    git lfs push --all https://$(GITHUB_PAT):@github.com/zWaifu/plugin-feature-Pomodoro.git
+  displayName: 'Mirror repo to GitHub'
+- checkout: self
+  clean: true
